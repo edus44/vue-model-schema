@@ -3,9 +3,45 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "test-dev": "jest --watch",
+    "version": "conventional-changelog -p eslint -o CHANGELOG.md -r 0 && git add CHANGELOG.md"
+  },
   "dependencies": {
+    "lodash.assignin": "^4.2.0",
+    "lodash.assigninwith": "^4.2.0",
+    "lodash.isplainobject": "^4.0.6",
+    "lodash.set": "^4.3.2",
+    "lodash.sortby": "^4.7.0",
+    "moment": "^2.24.0",
+    "vuelidate": "^0.7.4"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "validate-commit-msg -p eslint"
+  },
+  "devDependencies": {
+    "@nuxt/babel-preset-app": "^2.10.2",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "conventional-changelog": "^3.1.12",
+    "conventional-changelog-cli": "^2.0.25",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^23.0.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "jest": "^24.9.0",
-    "lodash": "^4.17.15",
-    "moment": "^2.24.0"
+    "lint-staged": "^9.4.2",
+    "prettier": "^1.18.2",
+    "validate-commit": "^3.4.0",
+    "yorkie": "^2.0.0"
   }
 }

@@ -13,8 +13,10 @@ class User extends Schema {
 
 User.field('id', String)
 User.field('tags', [String])
+User.field('createdAt', [String])
 User.field('name', {
   type: String,
+  listable: true,
 })
 
 const user = new User({
@@ -27,4 +29,5 @@ const user = new User({
 
 it('should work', () => {
   console.log(User)
+  console.log(user)
 })

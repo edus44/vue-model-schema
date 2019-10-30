@@ -76,8 +76,6 @@ function getValue(val, field) {
     } else {
       return val.$toObject()
     }
-  } else if (isMoment(val)) {
-    return val.toISOString()
   } else {
     return cast(val, field)
   }
