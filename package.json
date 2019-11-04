@@ -8,6 +8,10 @@
     "test-dev": "jest --watch",
     "version": "conventional-changelog -p eslint -o CHANGELOG.md -r 0 && git add CHANGELOG.md"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edus44/vue-model-schema.git"
+  },
   "dependencies": {
     "lodash.isplainobject": "^4.0.6",
     "lodash.set": "^4.3.2",
