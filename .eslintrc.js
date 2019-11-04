@@ -3,12 +3,6 @@ module.exports = {
   env: {
     node: true,
   },
-  parserOptions: {
-    parser: 'babel-eslint',
-    ecmaFeatures: {
-      legacyDecorators: true,
-    },
-  },
   plugins: ['jest'],
   extends: [
     'eslint:recommended',

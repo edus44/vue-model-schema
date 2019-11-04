@@ -1,5 +1,5 @@
-import { fieldDecorator as field, virtualFieldDecorator as virtual } from './fieldDecorator'
+const Model = require('./Model')
 
-import Schema from './Schema'
+const model = (...args) => new Model(...args)
 
-export { field, virtual, Schema }
+module.exports = model

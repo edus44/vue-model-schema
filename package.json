@@ -1,6 +1,6 @@
 {
-  "name": "model-playground",
-  "version": "1.0.0",
+  "name": "vue-model-schema",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -9,12 +9,8 @@
     "version": "conventional-changelog -p eslint -o CHANGELOG.md -r 0 && git add CHANGELOG.md"
   },
   "dependencies": {
-    "lodash.assignin": "^4.2.0",
-    "lodash.assigninwith": "^4.2.0",
     "lodash.isplainobject": "^4.0.6",
     "lodash.set": "^4.3.2",
-    "lodash.sortby": "^4.7.0",
-    "moment": "^2.24.0",
     "vuelidate": "^0.7.4"
   },
   "engines": {
@@ -25,9 +21,6 @@
     "commit-msg": "validate-commit-msg -p eslint"
   },
   "devDependencies": {
-    "@nuxt/babel-preset-app": "^2.10.2",
-    "babel-eslint": "^10.0.3",
-    "babel-jest": "^24.9.0",
     "conventional-changelog": "^3.1.12",
     "conventional-changelog-cli": "^2.0.25",
     "eslint": "^6.6.0",

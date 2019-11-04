@@ -1,29 +1,29 @@
-import set from 'lodash.set'
-import * as validators from 'vuelidate/lib/validators'
+const set = require('lodash.set')
+const validators = require('vuelidate/lib/validators')
 
-export function getValidationsFromModel(model, params) {
-  const v = {}
+function getValidationsFromModel(model, params) {
+  const validations = {}
   const modifiers = typeof params === 'object' ? params : {}
   const fieldNames = Array.isArray(params) ? params : Object.keys(params)
   // Iterate fields
   for (const fieldName of fieldNames) {
-    const fieldValidations = getFieldValidations(model, fieldName, modifiers[fieldName], this)
-    if (fieldValidations) set(v, fieldName, fieldValidations)
+    const fieldValidations = getFieldValidations(model, fieldName, modifiers[fieldName])
+    if (fieldValidations) set(validations, fieldName, fieldValidations)
   }
 
-  return v
+  return validations
 }
 
-function getFieldValidations(model, fieldName, modifier = {}, vm) {
+function getFieldValidations(model, fieldName, modifier = {}) {
   // Get validations from field definition
   const field = model.getField(fieldName)
-  const validations = field && typeof field.validations === 'object' && field.validations
-  if (!validations) return
+  if (!field || !field.validations)
+    throw new Error(`Validations for ${model.ns(fieldName)} not found`)
   const v = {}
 
   // Iterate over field validators
-  for (const name in validations) {
-    const args = modifier[name] || validations[name]
+  for (const name in field.validations) {
+    const args = modifier[name] || field.validations[name]
     const validator = getValidator(name, args)
     if (validator) v[name] = validator
   }
@@ -54,3 +54,5 @@ function getValidator(name, args) {
 
   return fn
 }
+
+module.exports = { getValidationsFromModel }
