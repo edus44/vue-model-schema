@@ -25,6 +25,7 @@ class Model {
 
       this.fields[fieldName] = field
     }
+    Object.freeze(this)
   }
 
   getField(fieldName) {
@@ -62,7 +63,7 @@ function normalizeField(name, def) {
 
   field.name = name
 
-  return field
+  return Object.freeze(field)
 }
 
 module.exports = Model
