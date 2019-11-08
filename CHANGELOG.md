@@ -1,3 +1,12 @@
+## [0.0.3](https://github.com/edus44/vue-model-schema/compare/v0.0.2...v0.0.3) (2019-11-08)
+
+
+### Update
+
+* Freeze returned object ([ad5a631](https://github.com/edus44/vue-model-schema/commit/ad5a63125dc4bb471d86ec6313a5da4a0f274d8f))
+
+
+
 ## [0.0.2](https://github.com/edus44/vue-model-schema/compare/v0.0.1...v0.0.2) (2019-11-04)
 
 
