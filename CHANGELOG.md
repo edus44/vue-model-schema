@@ -1,3 +1,12 @@
+## [0.0.5](https://github.com/edus44/vue-model-schema/compare/v0.0.4...v0.0.5) (2019-11-10)
+
+
+### Fix
+
+* Nested getFields and $each paths ([e4924a5](https://github.com/edus44/vue-model-schema/commit/e4924a523f6b9acb09100e3ca1a355e091fe43ae))
+
+
+
 ## [0.0.4](https://github.com/edus44/vue-model-schema/compare/v0.0.3...v0.0.4) (2019-11-10)
 
 
