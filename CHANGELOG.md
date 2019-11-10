@@ -1,3 +1,12 @@
+## [0.0.4](https://github.com/edus44/vue-model-schema/compare/v0.0.3...v0.0.4) (2019-11-10)
+
+
+### New
+
+* Support for $each validators ([4dc125c](https://github.com/edus44/vue-model-schema/commit/4dc125cff7ca1e986d7a159105c2cb44a0b531f7))
+
+
+
 ## [0.0.3](https://github.com/edus44/vue-model-schema/compare/v0.0.2...v0.0.3) (2019-11-08)
 
 
