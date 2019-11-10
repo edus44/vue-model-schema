@@ -17,11 +17,14 @@ function getValidationsFromModel(model, fieldNames, modifiers = {}) {
 
 function getPath(model, fieldName) {
   const levels = fieldName.split('.')
-  const parent = model.getField(levels.slice(0, -1))
-  if (parent && parent.isArray) {
-    levels.splice(-1, 0, '$each')
-  }
-  return levels
+  // Adds $each between parent and child when parent has isArray
+  let parent = { type: model }
+  return levels.reduce((acc, level) => {
+    if (parent && parent.isArray) acc.push('$each')
+    acc.push(level)
+    parent = parent.type.getField(level)
+    return acc
+  }, [])
 }
 
 function getValidators(fieldValidations, modifier = {}) {

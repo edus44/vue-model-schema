@@ -1,4 +1,5 @@
-const isPlainObject = require('lodash/isPlainObject')
+const isPlainObject = require('lodash.isplainobject')
+const get = require('lodash.get')
 const { getValidationsFromModel } = require('./validations')
 
 class Model {
@@ -29,13 +30,10 @@ class Model {
   }
 
   getField(fieldName) {
-    const levels = Array.isArray(fieldName) ? fieldName : fieldName.split('.')
-    const firstLevel = this.fields[levels[0]]
-    if (levels.length > 1 && firstLevel && firstLevel.type instanceof Model) {
-      return firstLevel.type.getField(levels.slice(1))
-    } else {
-      return firstLevel
-    }
+    if (!fieldName) return
+    fieldName = Array.isArray(fieldName) ? fieldName.join('.') : fieldName
+    const path = fieldName.replace(/\./g, '.type.fields.')
+    return get(this.fields, path)
   }
 
   ns(fieldName) {

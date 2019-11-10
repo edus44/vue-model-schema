@@ -13,6 +13,7 @@
     "url": "git+https://github.com/edus44/vue-model-schema.git"
   },
   "dependencies": {
+    "lodash.get": "^4.4.2",
     "lodash.isplainobject": "^4.0.6",
     "lodash.set": "^4.3.2",
     "vuelidate": "^0.7.4"

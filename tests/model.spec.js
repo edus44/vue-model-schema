@@ -116,8 +116,17 @@ describe('getField helper', () => {
         first: String,
       }),
     })
-    const field = foo.getField('name.first')
-    expect(field).toHaveProperty('type', String)
+    expect(foo.getField('name')).toHaveProperty('type', expect.any(Model))
+    expect(foo.getField('name.first')).toHaveProperty('type', String)
+  })
+  it('should return undefined if not exists', () => {
+    const foo = model({
+      name: model({
+        first: String,
+      }),
+    })
+    expect(foo.getField('invent')).toBeUndefined()
+    expect(foo.getField('name.invent')).toBeUndefined()
   })
 })
 
@@ -240,6 +249,14 @@ describe('validations', () => {
   })
 
   it('should respect $each for isArray types', () => {
+    const group = model({
+      key: {
+        type: String,
+        validations: {
+          maxLength: [3],
+        },
+      },
+    })
     const foo = model({
       tags: {
         type: [
@@ -250,6 +267,7 @@ describe('validations', () => {
                 minLength: [2],
               },
             },
+            groups: [group],
           }),
         ],
         validations: {
@@ -258,8 +276,12 @@ describe('validations', () => {
       },
     })
 
-    const validations = foo.getValidations(['tags', 'tags.name'])
+    const validations = foo.getValidations(['tags', 'tags.name', 'tags.groups.key'])
     expect(validations).toHaveProperty('tags.required', expect.any(Function))
     expect(validations).toHaveProperty('tags.$each.name.minLength', expect.any(Function))
+    expect(validations).toHaveProperty(
+      'tags.$each.groups.$each.key.maxLength',
+      expect.any(Function)
+    )
   })
 })
