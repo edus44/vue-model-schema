@@ -151,7 +151,7 @@ export default {
   }),
   validations() {
     return {
-      ...user.getValidations({
+      ...user.getValidations(['name'], {
         name: {
           minLength: [this.min],
           maxLength: [this.max],

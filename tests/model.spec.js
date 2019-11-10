@@ -201,4 +201,65 @@ describe('validations', () => {
       foo.fields.parent.type.fields.firstChild.validations.custom
     )
   })
+
+  it('should return validations object with modifier', () => {
+    const foo = model({
+      address: model({
+        city: {
+          type: String,
+          validations: {
+            custom() {},
+          },
+        },
+      }),
+    })
+    const custom2 = () => {}
+
+    const validations = foo.getValidations(['address.city'], {
+      'address.city': { custom: custom2 },
+    })
+    expect(validations).toHaveProperty('address.city.custom', custom2)
+  })
+
+  it('should expand $each validators', () => {
+    const foo = model({
+      tags: {
+        type: [String],
+        validations: {
+          required: true,
+          $each: {
+            minLength: [2],
+          },
+        },
+      },
+    })
+
+    const validations = foo.getValidations(['tags'])
+    expect(validations).toHaveProperty('tags.required', expect.any(Function))
+    expect(validations).toHaveProperty('tags.$each.minLength', expect.any(Function))
+  })
+
+  it('should respect $each for isArray types', () => {
+    const foo = model({
+      tags: {
+        type: [
+          model({
+            name: {
+              type: String,
+              validations: {
+                minLength: [2],
+              },
+            },
+          }),
+        ],
+        validations: {
+          required: true,
+        },
+      },
+    })
+
+    const validations = foo.getValidations(['tags', 'tags.name'])
+    expect(validations).toHaveProperty('tags.required', expect.any(Function))
+    expect(validations).toHaveProperty('tags.$each.name.minLength', expect.any(Function))
+  })
 })

@@ -1,31 +1,41 @@
 const set = require('lodash.set')
 const validators = require('vuelidate/lib/validators')
 
-function getValidationsFromModel(model, params) {
+function getValidationsFromModel(model, fieldNames, modifiers = {}) {
   const validations = {}
-  const modifiers = typeof params === 'object' ? params : {}
-  const fieldNames = Array.isArray(params) ? params : Object.keys(params)
   // Iterate fields
   for (const fieldName of fieldNames) {
-    const fieldValidations = getFieldValidations(model, fieldName, modifiers[fieldName])
-    if (fieldValidations) set(validations, fieldName, fieldValidations)
+    const field = model.getField(fieldName)
+    if (field && field.validations) {
+      const validators = getValidators(field.validations, modifiers[fieldName])
+      const path = getPath(model, fieldName)
+      set(validations, path, validators)
+    }
   }
-
   return validations
 }
 
-function getFieldValidations(model, fieldName, modifier = {}) {
-  // Get validations from field definition
-  const field = model.getField(fieldName)
-  if (!field || !field.validations)
-    throw new Error(`Validations for ${model.ns(fieldName)} not found`)
+function getPath(model, fieldName) {
+  const levels = fieldName.split('.')
+  const parent = model.getField(levels.slice(0, -1))
+  if (parent && parent.isArray) {
+    levels.splice(-1, 0, '$each')
+  }
+  return levels
+}
+
+function getValidators(fieldValidations, modifier = {}) {
   const v = {}
 
   // Iterate over field validators
-  for (const name in field.validations) {
-    const args = modifier[name] || field.validations[name]
-    const validator = getValidator(name, args)
-    if (validator) v[name] = validator
+  for (const name in fieldValidations) {
+    const args = modifier[name] || fieldValidations[name]
+    if (name === '$each') {
+      v[name] = getValidators(args)
+    } else {
+      const validator = getValidator(name, args)
+      if (validator) v[name] = validator
+    }
   }
   return v
 }

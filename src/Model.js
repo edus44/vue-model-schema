@@ -42,8 +42,8 @@ class Model {
     return `${this.name}${fieldName ? '.' + fieldName : ''}`
   }
 
-  getValidations(params) {
-    return getValidationsFromModel(this, params)
+  getValidations(params, modifiers) {
+    return getValidationsFromModel(this, params, modifiers)
   }
 }
 
